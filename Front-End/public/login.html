@@ -10,20 +10,16 @@
 </head>
 <body>
     <div class="auth-container">
-        <!-- Animated background shapes -->
         <div class="auth-shapes">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
             <div class="shape shape-3"></div>
             <div class="shape shape-4"></div>
         </div>
-        
-        <!-- Back to home link -->
         <a href="index.html" class="back-home">
             <i class="fas fa-arrow-left"></i> Back to Home
         </a>
         
-        <!-- Authentication card -->
         <div class="auth-card">
             <div class="card-header">
                 <div class="logo">
@@ -34,22 +30,20 @@
             </div>
             
             <form class="auth-form" id="login-form">
-                <!-- Email Field -->
                 <div class="form-group">
                     <div class="input-container">
                         <i class="input-icon fas fa-envelope"></i>
-                        <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
+                        <input type="email" id="userEmail" name="email" class="form-input" placeholder=" " required>
                         <label for="email" class="form-label">Email Address</label>
                         <div class="focus-border"></div>
                     </div>
                     <div class="input-hint">Enter your registered email address</div>
                 </div>
                 
-                <!-- Password Field -->
                 <div class="form-group">
                     <div class="input-container">
                         <i class="input-icon fas fa-lock"></i>
-                        <input type="password" id="password" name="password" class="form-input" placeholder=" " required>
+                        <input type="password" id="userPassword" name="password" class="form-input" placeholder=" " required>
                         <label for="password" class="form-label">Password</label>
                         <div class="focus-border"></div>
                         <button type="button" class="toggle-password" id="toggle-password">
@@ -59,7 +53,6 @@
                     <div class="input-hint">Enter your account password</div>
                 </div>
                 
-                <!-- Remember me & Forgot password -->
                 <div class="form-options">
                     <div class="checkbox-group">
                         <input type="checkbox" id="remember" name="remember" class="checkbox-input">
@@ -67,40 +60,35 @@
                     </div>
                     <a href="reset-password.html" class="forgot-password">Forgot Password?</a>
                 </div>
-                
-                <!-- Submit Button -->
-                <button type="submit" class="auth-button">
+                <button id="userLogin" type="submit" class="auth-button">
                     <span class="button-text">Sign In</span>
                     <i class="fas fa-arrow-right button-icon"></i>
                 </button>
             </form>
-            
-            <!-- Alternative sign in options -->
             <div class="auth-divider">
                 <span>Or sign in with</span>
             </div>
             
             <div class="social-auth">
-                <button class="social-button google">
+                <button id="googleLogin" class="social-button google">
                     <i class="fab fa-google"></i>
                     <span>Google</span>
                 </button>
-                <button class="social-button github">
+                <button id="githubLogin" class="social-button github">
                     <i class="fab fa-github"></i>
                     <span>GitHub</span>
                 </button>
             </div>
-            
-            <!-- Signup redirect -->
             <div class="auth-redirect">
                 Don't have an account? <a href="signup.html" class="link">Sign Up</a>
             </div>
         </div>
         
-        <!-- Footer -->
         <div class="auth-footer">
-            <p>&copy; <span id="current-year">2023</span> AS Hosting. All rights reserved.</p>
+            <p>&copy; <span id="current-year">2025</span> AS Hosting. All rights reserved.</p>
         </div>
     </div>
 </body>
+<script type="module" src="/Front-End/public/JavaScript/login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

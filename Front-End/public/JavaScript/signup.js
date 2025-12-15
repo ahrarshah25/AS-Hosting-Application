@@ -14,6 +14,13 @@ const supabaseKey = config.supabaseAnonKey;
 const supabase = createClient(supabaseUrl, supabaseKey);
 emailjs.init("irJn2J3oWn-KthFuO");
 
+const {data: { user }} = await supabase.auth.getUser();
+
+if(user){
+    window.location.href = "/dashboard/dashboard.html"
+}
+console.log(user);
+
 async function userSignup() {
   let userName = document.getElementById("userName");
   let userEmail = document.getElementById("userEmail");
@@ -162,7 +169,7 @@ async function userSignup() {
   });
   setInterval(function () {
     window.location.href = "verify.html?user=" + signupData.user.id;
-  }, 20000);
+  }, 3000);
 }
 
 const userSignupBtn = document.getElementById("userSignup");

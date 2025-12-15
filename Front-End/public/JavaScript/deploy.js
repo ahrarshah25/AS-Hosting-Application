@@ -39,9 +39,6 @@ async function initDeploy() {
   const previewMethod = document.getElementById("previewMethod");
   const previewEnv = document.getElementById("previewEnv");
 
-  // ---------------------
-  // Deployment Method Toggle
-  // ---------------------
   methodOptions.forEach(option => {
     option.addEventListener("click", () => {
       methodOptions.forEach(o => o.classList.remove("active"));
@@ -168,7 +165,7 @@ async function initDeploy() {
     // ---------------------
     let deployResult;
     try {
-      const response = await fetch("https://as-hosting-application-backend.vercel.app/api/deply", {
+      const response = await fetch("https://as-hosting-application-backend.vercel.app/api/deploy", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectName, uploadedFiles: uploadResult.uploadedFiles }),
