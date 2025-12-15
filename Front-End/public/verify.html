@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account | AS Hosting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/verify.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <div class="auth-card">
+            <div class="card-header">
+                <div class="logo">
+                    <span class="logo-text">AS</span> Hosting
+                </div>
+                <h1 class="auth-title">Verify Account</h1>
+                <p class="auth-subtitle">Enter the 6-digit code sent to your email</p>
+            </div>
+            
+            <form class="auth-form" id="verify-form">
+                <div class="code-container">
+                    <div class="code-inputs">
+                        <input type="text" class="code-input" maxlength="1">
+                        <input type="text" class="code-input" maxlength="1">
+                        <input type="text" class="code-input" maxlength="1">
+                        <input type="text" class="code-input" maxlength="1">
+                        <input type="text" class="code-input" maxlength="1">
+                        <input type="text" class="code-input" maxlength="1">
+                    </div>
+                    <div class="code-hint">Enter the 6-digit verification code</div>
+                </div>
+                <div class="timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer-text">02:00</span>
+                </div>
+                <div class="resend-code">
+                    Didn't receive the code? <button type="button" class="resend-button" id="resend-button">Resend</button>
+                </div>
+                <button id="submitBtn" type="submit" class="auth-button">
+                    <span class="button-text">Verify Account</span>
+                    <i class="fas fa-check button-icon"></i>
+                </button>
+            </form>
+            <div class="auth-redirect">
+                Having issues? <a href="login.html" class="link">Contact Support</a>
+            </div>
+        </div>
+        <div class="auth-footer">
+            <p>&copy; <span id="current-year">2025</span> AS Hosting. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+<script type="module" src="/Front-End/public/JavaScript/verify.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</html>

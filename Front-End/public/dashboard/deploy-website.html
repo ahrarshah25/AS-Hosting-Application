@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy Project | AS Hosting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Front-End/public/css/deploy.css">
+</head>
+<body>
+    <div class="deploy-container">
+        <!-- Navigation Header -->
+        <header class="deploy-header">
+            <div class="header-left">
+                <a href="dashboard.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <div class="logo">
+                    <span class="logo-text">AS</span> Hosting
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                    </div>
+                    <span class="user-name">John Smith</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="deploy-content">
+            <div class="deploy-wizard">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Project Details</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Configure</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Deploy</div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                
+                <!-- Deployment Form -->
+                <div class="deploy-form-container">
+                    <div class="form-header">
+                        <h1 class="form-title">Deploy New Project</h1>
+                        <p class="form-subtitle">Upload your project files or import from GitHub to deploy instantly</p>
+                    </div>
+                    
+                    <form class="deploy-form" id="deployForm">
+                        <!-- Project Name -->
+                        <div class="form-group">
+                            <label for="projectName" class="form-label">
+                                Project Name <span class="required">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-folder"></i>
+                                <input type="text" id="projectName" name="projectName" class="form-input" placeholder="my-awesome-project" required>
+                            </div>
+                            <div class="input-hint">Use lowercase letters, numbers, and hyphens only</div>
+                        </div>
+                        
+                        <!-- Project Description -->
+                        <div class="form-group">
+                            <label for="projectDescription" class="form-label">Description (Optional)</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-align-left"></i>
+                                <textarea id="projectDescription" name="projectDescription" class="form-input textarea" rows="3" placeholder="Brief description of your project..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Deployment Method -->
+                        <div class="form-group">
+                            <label class="form-label">Deployment Method</label>
+                            <div class="method-selector">
+                                <div class="method-option active" data-method="local">
+                                    <div class="method-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </div>
+                                    <div class="method-content">
+                                        <h4>Upload Files</h4>
+                                        <p>Upload project files directly from your computer</p>
+                                    </div>
+                                    <div class="method-check">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="method-option" data-method="github">
+                                    <div class="method-icon">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                    <div class="method-content">
+                                        <h4>Import from GitHub</h4>
+                                        <p>Connect your GitHub repository to deploy automatically</p>
+                                    </div>
+                                    <div class="method-check">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- File Upload Area -->
+                        <div class="form-group upload-section active" id="localUpload">
+                            <div class="upload-area" id="uploadArea">
+                                <div class="upload-content">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <h3>Drag & Drop Files Here</h3>
+                                    <p>Upload your project folder or files (Max: 500MB)</p>
+                                    <div class="upload-buttons">
+                                        <button type="button" class="btn btn-outline" id="browseButton">
+                                            <i class="fas fa-folder-open"></i>
+                                            Browse Files
+                                        </button>
+                                        <span class="upload-or">or</span>
+                                        <span class="upload-hint">Drag files here</span>
+                                    </div>
+                                </div>
+                                <input type="file" id="fileInput" multiple style="display: none;">
+                                
+                                <!-- File List Preview -->
+                                <div class="file-list" id="fileList">
+                                    <!-- Files will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- GitHub Import Section -->
+                        <div class="form-group upload-section" id="githubImport">
+                            <div class="github-connect">
+                                <div class="github-header">
+                                    <div class="github-icon">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                    <div class="github-info">
+                                        <h3>Connect GitHub Repository</h3>
+                                        <p>Import and deploy directly from your GitHub account</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="github-form">
+                                    <div class="github-input-group">
+                                        <label for="githubRepo" class="form-label">Repository URL</label>
+                                        <div class="input-with-icon">
+                                            <i class="fab fa-github"></i>
+                                            <input type="text" id="githubRepo" name="githubRepo" class="form-input" placeholder="https://github.com/username/repository">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="github-input-group">
+                                        <label for="githubBranch" class="form-label">Branch</label>
+                                        <div class="input-with-icon">
+                                            <i class="fas fa-code-branch"></i>
+                                            <input type="text" id="githubBranch" name="githubBranch" class="form-input" placeholder="main" value="main">
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="button" class="btn btn-outline github-connect-btn">
+                                        <i class="fas fa-plug"></i>
+                                        Connect GitHub Account
+                                    </button>
+                                    
+                                    <div class="github-hint">
+                                        <i class="fas fa-info-circle"></i>
+                                        Requires GitHub OAuth authorization for private repositories
+                                    </div>
+                                </div>
+                                
+                                <!-- Repository Preview -->
+                                <div class="repo-preview">
+                                    <div class="repo-card">
+                                        <div class="repo-icon">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                        <div class="repo-info">
+                                            <h4>No repository selected</h4>
+                                            <p>Connect your GitHub account or enter repository URL</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Environment Configuration -->
+                        <div class="form-group">
+                            <label class="form-label">Environment Configuration</label>
+                            <div class="environment-config">
+                                <div class="env-option active" data-env="node">
+                                    <div class="env-icon">
+                                        <i class="fab fa-node-js"></i>
+                                    </div>
+                                    <div class="env-info">
+                                        <h4>Node.js</h4>
+                                        <p>npm start, Node 18 LTS</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="env-option" data-env="python">
+                                    <div class="env-icon">
+                                        <i class="fab fa-python"></i>
+                                    </div>
+                                    <div class="env-info">
+                                        <h4>Python</h4>
+                                        <p>Python 3.11, pip install</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="env-option" data-env="static">
+                                    <div class="env-icon">
+                                        <i class="fas fa-file-code"></i>
+                                    </div>
+                                    <div class="env-info">
+                                        <h4>Static Site</h4>
+                                        <p>HTML, CSS, JavaScript</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="env-option" data-env="custom">
+                                    <div class="env-icon">
+                                        <i class="fas fa-cog"></i>
+                                    </div>
+                                    <div class="env-info">
+                                        <h4>Custom</h4>
+                                        <p>Define your own build commands</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Custom Build Commands (hidden by default) -->
+                        <div class="form-group custom-build-section">
+                            <label for="buildCommands" class="form-label">Custom Build Commands</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-terminal"></i>
+                                <input type="text" id="buildCommands" name="buildCommands" class="form-input" placeholder="npm install && npm run build">
+                            </div>
+                        </div>
+                        
+                        <!-- Deployment Buttons -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="previewBtn">
+                                <i class="fas fa-eye"></i>
+                                Preview Deployment
+                            </button>
+                            <button type="submit" class="btn btn-primary deploy-btn" id="deployBtn">
+                                <span class="btn-text">Deploy Now</span>
+                                <i class="fas fa-rocket btn-icon"></i>
+                                <div class="btn-loader">
+                                    <div class="loader-circle"></div>
+                                    <div class="loader-circle"></div>
+                                    <div class="loader-circle"></div>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Deployment Preview Sidebar -->
+            <aside class="preview-sidebar">
+                <div class="preview-header">
+                    <h3>Deployment Preview</h3>
+                    <button class="preview-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="preview-content">
+                    <div class="preview-project">
+                        <div class="preview-project-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="preview-project-info">
+                            <h4 id="previewProjectName">my-awesome-project</h4>
+                            <p id="previewProjectDesc">No description provided</p>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-details">
+                        <div class="preview-detail">
+                            <span class="detail-label">Method:</span>
+                            <span class="detail-value" id="previewMethod">Upload Files</span>
+                        </div>
+                        <div class="preview-detail">
+                            <span class="detail-label">Environment:</span>
+                            <span class="detail-value" id="previewEnv">Node.js</span>
+                        </div>
+                        <div class="preview-detail">
+                            <span class="detail-label">Estimated Time:</span>
+                            <span class="detail-value" id="previewTime">1-2 minutes</span>
+                        </div>
+                        <div class="preview-detail">
+                            <span class="detail-label">Storage:</span>
+                            <span class="detail-value" id="previewStorage">0 MB</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-url">
+                        <div class="url-preview">
+                            <span class="url-label">Your site will be live at:</span>
+                            <div class="url-value" id="previewUrl">https://my-awesome-project.ashosting.app</div>
+                        </div>
+                        <button class="btn btn-outline copy-url">
+                            <i class="fas fa-copy"></i>
+                            Copy URL
+                        </button>
+                    </div>
+                    
+                    <div class="preview-features">
+                        <h4>Included Features</h4>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check"></i> SSL Certificate (HTTPS)</li>
+                            <li><i class="fas fa-check"></i> Global CDN</li>
+                            <li><i class="fas fa-check"></i> Custom Domain Support</li>
+                            <li><i class="fas fa-check"></i> Automatic Backups</li>
+                            <li><i class="fas fa-check"></i> 24/7 Monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </main>
+        
+        <!-- Deployment Progress Modal -->
+        <div class="deploy-modal" id="deployModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Deployment in Progress</h2>
+                    <button class="modal-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="deploy-progress">
+                        <div class="progress-steps">
+                            <div class="progress-step active">
+                                <div class="step-indicator">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Uploading Files</h4>
+                                    <p>Transferring project files to server</p>
+                                </div>
+                                <div class="step-status">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-step">
+                                <div class="step-indicator">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Building Project</h4>
+                                    <p>Running build commands and dependencies</p>
+                                </div>
+                                <div class="step-status"></div>
+                            </div>
+                            
+                            <div class="progress-step">
+                                <div class="step-indicator">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Deploying to Server</h4>
+                                    <p>Setting up on production environment</p>
+                                </div>
+                                <div class="step-status"></div>
+                            </div>
+                            
+                            <div class="progress-step">
+                                <div class="step-indicator">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Deployment Complete</h4>
+                                    <p>Your site is now live!</p>
+                                </div>
+                                <div class="step-status"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">0% Complete</div>
+                        </div>
+                        
+                        <div class="deploy-logs">
+                            <div class="logs-header">
+                                <h4>Deployment Logs</h4>
+                                <button class="logs-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                            <div class="logs-content">
+                                <div class="log-entry success">
+                                    <span class="log-time">[12:30:45]</span>
+                                    <span class="log-message">Initializing deployment process...</span>
+                                </div>
+                                <div class="log-entry info">
+                                    <span class="log-time">[12:30:46]</span>
+                                    <span class="log-message">Project: my-awesome-project</span>
+                                </div>
+                                <div class="log-entry info">
+                                    <span class="log-time">[12:30:47]</span>
+                                    <span class="log-message">Environment: Node.js 18 LTS</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">[12:30:48]</span>
+                                    <span class="log-message">Starting file upload...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancelDeploy">
+                        <i class="fas fa-times"></i>
+                        Cancel Deployment
+                    </button>
+                    <button class="btn btn-outline" id="viewDashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        View Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="module" src="/Front-End/public/JavaScript/deploy.js"></script>
+</html>

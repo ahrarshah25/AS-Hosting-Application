@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signing you in...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: float 15s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+
+        .shape:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            right: 15%;
+            animation-delay: 3s;
+            animation-duration: 25s;
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 6s;
+            animation-duration: 30s;
+        }
+
+        .shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 9s;
+            animation-duration: 22s;
+        }
+
+        .shape:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            top: 50%;
+            left: 5%;
+            animation-delay: 12s;
+            animation-duration: 28s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(30px, 40px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 80px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-30px, 40px) rotate(270deg);
+            }
+        }
+
+        .loader-box {
+            text-align: center;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .loader-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc, #00d2ff);
+            animation: gradientSlide 3s infinite linear;
+            background-size: 200% 100%;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientSlide {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .loader {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+        }
+
+        .loader::before {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .loader::after {
+            border: 4px solid transparent;
+            border-top: 4px solid #6a11cb;
+            border-right: 4px solid #2575fc;
+            border-bottom: 4px solid #00d2ff;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-box h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a3b1cc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 30px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border-radius: 3px;
+            position: absolute;
+            animation: progress 3s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0;
+                left: 0;
+            }
+            50% {
+                width: 100%;
+                left: 0;
+            }
+            100% {
+                width: 0;
+                left: 100%;
+            }
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(39, 174, 96, 0.15);
+            border-radius: 50px;
+            margin-top: 20px;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+
+        .security-badge i {
+            color: #27ae60;
+            font-size: 20px;
+        }
+
+        .security-badge span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .loading-steps {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.5;
+        }
+
+        .step.active {
+            opacity: 1;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .step.active .step-dot {
+            background: #6a11cb;
+            animation: pulseDot 1.5s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(106, 17, 203, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(106, 17, 203, 0);
+            }
+        }
+
+        .step-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brand-logo {
+            margin-top: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-logo span:first-child {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .brand-logo span:last-child {
+            color: #a3b1cc;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .loader-box {
+                padding: 40px 20px;
+                width: 95%;
+            }
+
+            .loader-box h2 {
+                font-size: 24px;
+            }
+
+            .loader {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 30px;
+            }
+
+            .loading-steps {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .step-label {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loader-box {
+                padding: 30px 15px;
+            }
+
+            .loader-box h2 {
+                font-size: 20px;
+            }
+
+            .loader {
+                width: 70px;
+                height: 70px;
+            }
+
+            .security-badge {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="loader-box">
+        <div class="loader"></div>
+        
+        <h2>Signing you in securely...</h2>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <div class="loading-steps">
+            <div class="step active">
+                <div class="step-dot"></div>
+                <span class="step-label">Verifying</span>
+            </div>
+            <div class="step">
+                <div class="step-dot"></div>
+                <span class="step-label">Authenticating</span>
+            </div>
+            <div class="step">
+                <div class="step-dot"></div>
+                <span class="step-label">Redirecting</span>
+            </div>
+        </div>
+        
+        <div class="security-badge">
+            <span>🔐</span>
+            <span>Secure Connection • SSL Encrypted</span>
+        </div>
+        
+        <div class="brand-logo">
+            <span>AS</span>
+            <span>Hosting</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+        // 🔐 Backend se config load
+        const BACKEND = "https://as-hosting-application-backend.vercel.app/config";
+
+        try {
+            const res = await fetch(BACKEND);
+            const config = await res.json();
+
+            const supabase = createClient(
+                config.supabaseUrl,
+                config.supabaseAnonKey
+            );
+
+            // 🔑 OAuth session read
+            const { data: { session }, error } = await supabase.auth.getSession();
+
+            if (error) {
+                throw error;
+            }
+
+            if (session) {
+                console.log("OAuth Success:", session.user);
+
+                // 🔥 URL se access_token hata do
+                window.history.replaceState({}, document.title, window.location.pathname);
+
+                Swal.fire({
+                    title: "Login Successful",
+                    text: "Welcome " + (session.user.user_metadata?.full_name || "User"),
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+                // ⏩ Redirect
+                setTimeout(() => {
+                    window.location.href = "/dashboard/dashboard.html";
+                }, 1600);
+
+            } else {
+                throw new Error("No session found");
+            }
+
+        } catch (err) {
+            console.error(err);
+
+            Swal.fire({
+                title: "Authentication Failed",
+                text: "Please login again.",
+                icon: "error"
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        }
+    </script>
+
+</body>
+</html>
